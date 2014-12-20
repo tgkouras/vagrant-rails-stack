@@ -1,18 +1,5 @@
 - name: Install ruby {{ version }}
-  sudo_user: 'vagrant'
-  shell: /usr/local/rvm install {{ version }}
+  shell: /usr/local/rvm/bin/rvm install {{ version }} executable=/bin/bash
 
 - name: Set default ruby to {{ version }}
-  sudo_user: 'vagrant'
-  shell: /usr/local/rvm --default use {{ version }}
-
-# - name: Install ruby {{ version }}
-#   sudo_user: 'vagrant'
-#   shell: cd; source ~/.rbenv.sh; bash -lc "CONFIGURE_OPTS=--disable-install-rdoc rbenv install {{ version }}"
-#
-# - name: Set default ruby to {{ version }}
-#   sudo_user: 'vagrant'
-#   shell: cd; bash -lc "rbenv global {{ version }}"
-
-- name: Install bundler
-  shell: gem install bundler
+  shell: /usr/local/rvm/bin/rvm alias create default {{ version }} executable=/bin/bash
