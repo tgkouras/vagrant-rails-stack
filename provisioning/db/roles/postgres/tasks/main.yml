@@ -1,0 +1,2 @@
+- name: Install postgress {{ version }}
+  apt: pkg=postgresql-{{ version }} state=installed update_cache=true

@@ -1,0 +1,14 @@
+- name: Install nginx
+  apt: pkg=nginx state=installed update_cache=true
+
+- name: Remove default config file
+  shell: rm /etc/nginx/sites-enabled/default
+
+- name: Copy nginx config to sites-available
+  copy: src=../files/nginx_config dest=/etc/nginx/sites-available/default
+
+- name: Symlink to sites-enabled
+  shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+  
+- name: Start nginx
+  service: name=nginx state=started

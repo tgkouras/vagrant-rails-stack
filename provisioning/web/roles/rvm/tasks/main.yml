@@ -1,0 +1,14 @@
+- name: Download signatures
+  shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+
+- name: Install rvm
+  sudo: no
+  shell: '\\curl -sSL https://get.rvm.io | sudo bash -s stable'
+
+# - name: source
+#   sudo: no
+#   command: source ~/.rvm/scripts/rvm
+#
+# - name: add to .bashrc
+#   sudo: no
+#   shell: echo "source ~/.rvm/scripts/rvm" >> ~/.bashrc
