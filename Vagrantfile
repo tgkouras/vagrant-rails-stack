@@ -10,6 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     webserver.vm.box = 'ubuntu/trusty64'
     webserver.vm.network 'forwarded_port', guest: 80, host: 9000
     webserver.vm.network 'private_network', ip: '192.168.10.21'
+    webserver.vm.synced_folder '../', '/vagrant'
 
     webserver.vm.provision 'ansible' do |ansible|
       ansible.playbook = 'provisioning/web/setup.yml'
