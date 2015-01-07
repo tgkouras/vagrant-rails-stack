@@ -2,7 +2,8 @@
   - hosts: webservers
     sudo: yes
     roles:
-      - { role: update, tags: ['update', 'complete'] }
-      - { role: nginx, tags: ['nginx', 'complete'] }
-      - { role: rvm, tags: ['rvm', 'complete'] }
+      # - { role: update, tags: ['update', 'complete'] }
+      # - { role: nginx, tags: ['nginx', 'complete'] }
+      - { role: rbenv, tags: ['rbenv', 'complete' ]}
       - { role: ruby, version: '2.1.4', tags: ['ruby'] }
+      - { role: deploy, tags: ['deploy', 'complete'] }

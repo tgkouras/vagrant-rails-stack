@@ -1,0 +1,7 @@
+- name: Install bundler
+  sudo_user: 'vagrant'
+  command: bash -lc "gem install bundler"
+
+- name: Install gems
+  sudo_user: 'vagrant'
+  command: bash -lc "cd ~vagrant/rails-project && bundle install" -u 'vagrant'

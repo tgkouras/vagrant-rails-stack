@@ -1,5 +1,10 @@
 - name: Install ruby {{ version }}
-  shell: /usr/local/rvm/bin/rvm install {{ version }} executable=/bin/bash
+  sudo_user: 'vagrant'
+  command: bash -lc "rbenv install {{ version }}" -u 'vagrant'
+
+- sudo_user: 'vagrant'
+  command: bash -lc "rbenv rehash" -u vagrant
 
 - name: Set default ruby to {{ version }}
-  shell: /usr/local/rvm/bin/rvm alias create default {{ version }} executable=/bin/bash
+  sudo_user: 'vagrant'
+  command: bash -lc "rbenv global {{ version }}" -u 'vagrant'

@@ -2,46 +2,36 @@
   apt: pkg={{ item }} state=installed
   with_items:
     - autoconf
-    - automake
     - bison
     - build-essential
-    - curl
-    - exuberant-ctags
-    - git-core
-    - libreadline6
-    - libreadline6-dev
-    - libreadline-dev
-    - libsqlite3-0
-    - libsqlite3-dev
     - libssl-dev
     - libyaml-dev
-    - libc6-dev
-    - libncurses5-dev
-    - libtool
-    - libxml2-dev
-    - libxslt1-dev
-    - openssl
-    - sqlite3
-    - subversion
-    - zlib1g
+    - libreadline6-dev
     - zlib1g-dev
+    - libncurses5-dev
+    - libffi-dev
+    - libgdbm3
+    - libgdbm-dev
+    - ruby-dev
+    - git-core
+    - libpq-dev
 
 - name: Install rbenv
-  git: repo=git://github.com/sstephenson/rbenv.git dest=~/.rbenv accept_hostkey=true
+  sudo_user: 'vagrant'
+  git: repo=git://github.com/sstephenson/rbenv.git dest=~vagrant/.rbenv accept_hostkey=true
 
-# - name: Copy rbenv.sh to remote
-#   copy: src=../files/rbenv.sh dest=~/.rbenv.sh
-#
-# - name: Install rbenv shims
-#   copy: src=rbenv.sh dest=~/.rbenv.sh mode=700 owner='vagrant'
-#
-# - name: Source rbenv shims file
-#   lineinfile: dest=~/.bashrc insertafter=EOF line="source ~/.rbenv.sh" create=yes
+- name: Copy rbenv.sh to remote
+  sudo_user: 'vagrant'
+  copy: src=../files/rbenv.sh dest=~vagrant/.rbenv.sh owner=vagrant mode=700
 
-- name: Add rbenv path to .bashrc
-  shell: echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-  shell: echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-  shell: exec $SHELL
-  
+- name: Source rbenv shims file
+  sudo_user: 'vagrant'
+  lineinfile: dest=~/.bash_profile insertafter=EOF regexp='rbenv' line="source ~/.rbenv.sh" create=yes
+
+- name: Create plugin directory
+  sudo_user: 'vagrant'
+  file: path=~vagrant/.rbenv/plugins owner=vagrant group=vagrant mode=0755 state=directory
+
 - name: Install ruby-build
-  git: repo=git://github.com/sstephenson/ruby-build.git dest=~/.rbenv/plugins/ruby-build accept_hostkey=true
+  sudo_user: 'vagrant'
+  git: repo=git://github.com/sstephenson/ruby-build.git dest=~vagrant/.rbenv/plugins/ruby-build accept_hostkey=true
