@@ -15,6 +15,7 @@
     - ruby-dev
     - git-core
     - libpq-dev
+    - htop
 
 - name: Install rbenv
   sudo_user: 'vagrant'

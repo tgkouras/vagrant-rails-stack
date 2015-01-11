@@ -1,0 +1,13 @@
+- name: Add unicorn to gemfile
+  sudo_user: 'vagrant'
+  lineinfile: dest=~vagrant/rails-project/Gemfile insertafter=EOF regexp='unicorn' line="gem 'unicorn'" state=present #create=yes
+
+- name: Create pids directory
+  sudo_user: 'vagrant'
+  file: path="~vagrant/rails-project/pids" owner=vagrant group=vagrant state=directory
+  # command: bash -lc "cd ~vagrant/rails-project && mkdir pids" -u 'vagrant'
+
+- name: Copy unicorn config
+  sudo_user: 'vagrant'
+  copy: src=../files/unicorn.rb dest=~vagrant/rails-project/config/unicorn.rb
+  when: copy_unicorn_config
