@@ -1,3 +1,7 @@
+- name: Copy original gemfile
+  sudo_user: 'vagrant'
+  command: cp ~vagrant/rails-project/Gemfile ~vagrant/rails-project/Gemfile.orig
+
 - name: Add unicorn to gemfile
   sudo_user: 'vagrant'
   lineinfile: dest=~vagrant/rails-project/Gemfile insertafter=EOF regexp='unicorn' line="gem 'unicorn'" state=present #create=yes

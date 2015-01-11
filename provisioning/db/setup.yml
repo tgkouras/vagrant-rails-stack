@@ -2,5 +2,5 @@
   - hosts: dbservers
     sudo: yes
     roles:
-      - { role: update, tags: ['update', 'complete'] }
+      # - { role: update, tags: ['update', 'complete'] }
       - { role: postgres, version: '9.3', tags: ['postgres', 'complete'] }
