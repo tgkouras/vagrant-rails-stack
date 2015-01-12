@@ -6,6 +6,16 @@ VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  config.vm.define 'dbserver' do |dbserver|
+    dbserver.vm.box = 'ubuntu/trusty64'
+    dbserver.vm.network 'private_network', ip: '192.168.10.22'
+
+    dbserver.vm.provision 'ansible' do |ansible|
+      ansible.playbook = 'provisioning/db/setup.yml'
+      ansible.inventory_path = 'provisioning/hosts'
+    end
+  end
+
   config.vm.define 'webserver' do |webserver|
     webserver.vm.box = 'ubuntu/trusty64'
     webserver.vm.network 'forwarded_port', guest: 80, host: 8888
@@ -22,15 +32,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.cpus = 2
     end
   end
-
-  config.vm.define 'dbserver' do |dbserver|
-    dbserver.vm.box = 'ubuntu/trusty64'
-    dbserver.vm.network 'private_network', ip: '192.168.10.22'
-
-    dbserver.vm.provision 'ansible' do |ansible|
-      ansible.playbook = 'provisioning/db/setup.yml'
-      ansible.inventory_path = 'provisioning/hosts'
-    end
-  end
-
 end

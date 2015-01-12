@@ -15,7 +15,7 @@
   copy: src=../files/database.yml dest=~vagrant/rails-project/config/database.yml
 
 - name: Create database
-  command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production && rake db:create && rake db:migrate" -u 'vagrant'
+  command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production && bundle exec rake db:create && bundle exec rake db:migrate" -u 'vagrant'
 #
 # - name: Precompile assets
 #   command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production rake assets:precompile" -u 'vagrant'

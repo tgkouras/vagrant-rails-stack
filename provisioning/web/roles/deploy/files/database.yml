@@ -8,3 +8,5 @@ default: &default
 production:
   <<: *default
   database: vagrant_rails_db
+  user: vagrant-rails
+  password: rails

@@ -18,4 +18,4 @@
 - name: Create postgres user for rails app
   sudo: yes
   sudo_user: 'vagrant'
-  postgresql_user: name=vagrant-rails password=rails role_attr_flags=CREATEDB,NOSUPERUSER
+  postgresql_user: name=vagrant_rails password=rails role_attr_flags=CREATEDB,NOSUPERUSER
