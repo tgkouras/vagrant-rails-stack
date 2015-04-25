@@ -8,6 +8,7 @@
 
 - name: Copy original database.yml file
   sudo_user: 'vagrant'
+  # TODO: only coply if *.orig file does not already exist
   command: cp ~vagrant/rails-project/config/database.yml ~vagrant/rails-project/config/database.yml.orig
 
 - name: Add vagrant specific database.yml file
@@ -15,15 +16,26 @@
   copy: src=../files/database.yml dest=~vagrant/rails-project/config/database.yml
 
 - name: Create database
-  command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production && bundle exec rake db:create && bundle exec rake db:migrate" -u 'vagrant'
-#
+  sudo_user: 'vagrant'
+  command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production bundle exec rake db:create" -u 'vagrant'
+
+- name: Load database schema
+  sudo_user: 'vagrant'
+  command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production bundle exec rake db:schema:load" -u 'vagrant'
+
+- name: Seed database
+  sudo_user: 'vagrant'
+  command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production bundle exec rake db:seed" -u 'vagrant'
+  when: seed_database
+
 # - name: Precompile assets
+#   sudo_user: 'vagrant'
 #   command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production rake assets:precompile" -u 'vagrant'
 #   when: precompile_assets
-#
+
 - name: Start unicorn
   sudo_user: 'vagrant'
-  command: bash -lc "cd ~vagrant/rails-project && bundle exec unicorn_rails -c config/unicorn.rb -D" -u 'vagrant'
+  command: bash -lc "cd ~vagrant/rails-project && bundle exec unicorn_rails -c config/unicorn.rb -E production -D" -u 'vagrant'
 
 - name: Restart nginx
   service: name=nginx state=restarted

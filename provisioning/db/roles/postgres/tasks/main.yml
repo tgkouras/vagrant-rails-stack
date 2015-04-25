@@ -1,5 +1,5 @@
 - name: Install dependencies
-  apt: pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=installed update_cache=true
   with_items:
     - python-psycopg2
 
