@@ -8,8 +8,7 @@
 
 - name: Copy original database.yml file
   sudo_user: 'vagrant'
-  # TODO: only coply if *.orig file does not already exist
-  command: cp ~vagrant/rails-project/config/database.yml ~vagrant/rails-project/config/database.yml.orig
+  command: cp ~vagrant/rails-project/config/database.yml ~vagrant/rails-project/config/database.yml.orig creates=~vagrant/rails-project/config/database.yml.orig
 
 - name: Add vagrant specific database.yml file
   sudo_user: 'vagrant'
@@ -28,10 +27,10 @@
   command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production bundle exec rake db:seed" -u 'vagrant'
   when: seed_database
 
-# - name: Precompile assets
-#   sudo_user: 'vagrant'
-#   command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production rake assets:precompile" -u 'vagrant'
-#   when: precompile_assets
+- name: Precompile assets
+  sudo_user: 'vagrant'
+  command: bash -lc "cd ~vagrant/rails-project && RAILS_ENV=production rake assets:precompile" -u 'vagrant'
+  when: precompile_assets
 
 - name: Start unicorn
   sudo_user: 'vagrant'

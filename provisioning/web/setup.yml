@@ -5,6 +5,6 @@
       - { role: update, tags: ['update', 'complete'] }
       - { role: nginx, tags: ['nginx', 'complete'] }
       - { role: rbenv, tags: ['rbenv', 'complete' ]}
-      - { role: ruby, version: '2.1.4', tags: ['ruby', 'complete'] }
+      - { role: ruby, version: '2.2.1', tags: ['ruby', 'complete'] }
       - { role: unicorn, copy_unicorn_config: true, tags: ['unicorn', 'complete'] }
-      - { role: deploy, precompile_assets: true, tags: ['deploy', 'complete'] }
+      - { role: deploy, precompile_assets: true, seed_database: false, tags: ['deploy', 'complete'] }
